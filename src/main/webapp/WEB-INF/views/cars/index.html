@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Машины</title>
+</head>
+<body>
+
+<div th:each="car : ${cars}">
+    <a th:href="@{/cars/{id}(id=${car.getId()})}"
+       th:text="${car.getBrandTitle() + ' ' + car.getModelTitle() + ', ' + car.getYearOfRelease()}">car</a>
+</div>
+
+<br>
+<hr>
+
+<form th:action="@{cars/new}">
+<input type="submit" value="Добавить автомобиль">
+</form>
+
+</body>
+</html>

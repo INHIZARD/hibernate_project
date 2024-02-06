@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Машина</title>
+</head>
+<body>
+
+<p th:text="${car.getBrandTitle() + ' ' + car.getModelTitle() + ', ' + car.getYearOfRelease()}">VALUE</p>
+
+<div th:if="${people}">
+    <form th:method="PATCH" th:action="@{/cars/{id}/add(id=${car.getId()})}">
+        <label for="person">Выберите человека </label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person : ${people}" th:value="${person.getId()}"
+                    th:text="${person.getFullName()}"></option>
+        </select>
+        <input type="submit" value="Назначить владельца" style="background-color: cornflowerblue">
+    </form>
+</div>
+
+<div th:if="${owner}">
+    <form th:method="PATCH" th:action="@{/cars/{id}/delete(id=${car.getId()})}">
+        <h3>Владельцем автомобиля является
+            <a th:href="@{/people/{id}(id=${owner.getId()})}" th:text="${owner.getFullName()}">value</a>
+        </h3>
+        <input type="submit" value="Отвязать" style="background-color: orange">
+    </form>
+</div>
+
+<hr>
+
+<form th:action="@{/cars/{id}/edit(id=${car.getId()})}">
+    <input type="submit" value="Изменить" style="background-color: forestgreen">
+</form>
+<form th:method="DELETE" th:action="@{/cars/{id}(id=${car.getId()})}">
+    <input type="submit" value="Удалить" style="background-color: #ff3a67"/>
+</form>
+
+</body>
+</html>
